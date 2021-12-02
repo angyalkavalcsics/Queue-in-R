@@ -17,6 +17,13 @@ knitr::opts_chunk$set(echo = TRUE)
 
 This package was created as a graduate project for a course in Queueing Theory and we dedicate it to Professor Muhammad El-Taha.
 
+<br />
+Please cite this package in the following way.
+
+```{r citeme, echo = TRUE}
+citation("QinR")
+```
+
 ## How To Install
 
 - To install a package from Github for the first time, first install the devtools package. This can be downloaded from the CRAN.
@@ -551,7 +558,7 @@ Suppose we had a system where there is only one server and a finite population o
 
 <br />
 
-Bare with us as we discuss the nice way we avoided calculating factorials in this function. For a finite population single-server model, we have that the probability that there are no customers in the system is
+Be patient with us as we discuss the nice way we avoided calculating factorials in this function. For a finite population single-server model, we have that the probability that there are no customers in the system is
 
 $$p_0 = \left[ \sum_{n = 0}^{N} \dfrac{N! \left(\dfrac{\lambda}{\mu}\right)^{n}}{(N-n)!} \right]^{-1}$$
 When $n=0$, let

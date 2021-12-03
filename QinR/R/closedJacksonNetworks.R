@@ -98,7 +98,7 @@
 #'
 #'q.MVA$L_i
 #'[1] 0.4291971 2.3124088 0.2583942
-cjn.summary <- function(v, mu, N, K, convolution = TRUE){
+cjnsummary <- function(v, mu, N, K, convolution = TRUE){
    if(convolution == TRUE){
       # Find tau_1, ..., tau_k
       tau = v/mu

@@ -123,7 +123,7 @@
 #'[1] 1
 
 
-gg1.summary <- function(arrivals, service_times, interarrival = FALSE){
+gg1summary <- function(arrivals, service_times, interarrival = FALSE){
    if(length(arrivals) != length(service_times))
    {
       stop('Arrays must have equal length')

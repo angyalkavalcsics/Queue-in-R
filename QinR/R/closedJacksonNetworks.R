@@ -98,16 +98,6 @@
 #'
 #'q.MVA$L_i
 #'[1] 0.4291971 2.3124088 0.2583942
-
-solve.routing <- function(R){
-   n = nrow(R)
-   m = ncol(R)
-   I = diag(x = 1, nrow = n, ncol = m)
-   Q = R - I
-   Q = cbind(Q, rep(1, n))
-   b = matrix(c(rep(0, n), 1), nrow = 1, ncol = (m+1))
-   v = (b%*%t(Q))%*%solve(Q%*%t(Q))
-}
 cjn.summary <- function(v, mu, N, K, convolution = TRUE){
    if(convolution == TRUE){
       # Find tau_1, ..., tau_k

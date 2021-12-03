@@ -74,7 +74,7 @@
 #' openjackson.queue$L
 #'[1] 60.94041
 
-ojnsummary <- function(R, gamma, mu){
+ojn.summary <- function(R, gamma, mu){
    n = nrow(R)
    m = ncol(R)
    K = length(mu)

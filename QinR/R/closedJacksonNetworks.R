@@ -13,6 +13,7 @@
 #' print(v)
 #'           [,1]      [,2]      [,3]
 #' [1,] 0.4444444 0.3333333 0.2222222
+#'
 solve.routing <- function(R){
    n = nrow(R)
    m = ncol(R)

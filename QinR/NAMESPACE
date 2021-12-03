@@ -3,6 +3,7 @@
 S3method(solve,routing)
 export(BD.solve)
 export(cjn.summary)
+export(finitepopulation.summary)
 export(gg1.summary)
 export(mmc.summary)
 export(ojn.summary)

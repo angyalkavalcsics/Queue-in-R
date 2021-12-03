@@ -16,7 +16,7 @@
 #'
 #' [1] 0.1176471 0.3529412 0.3529412 0.1764706
 
-BD.solve <- function(lambda, mu){
+BDsolve <- function(lambda, mu){
    if(length(lambda) != length(mu))
    {
       stop('Arrays must have equal length')

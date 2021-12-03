@@ -1,10 +1,14 @@
 
 #' Open Jackson Networks
 #'
-#' When convolution is set to true, the function uses Buzen’s algorithm to solve
-#' for the summary statistics. Otherwise the function will use Mean Value Analysis.
-#'In order to avoid rounding error, it is necessary to keep the probabilities in
-#'the routing matrix as fractions if they are non-terminating, recurring decimal numbers.
+#' Entities arrive from the outside at any node according to a Poisson process
+#' and entities are serviced according to an exponential distribution.
+#' There is no limit on queue capacity at any node and there is a probability,
+#' possibly nonzero, that an entity will leave the network at some node i
+#'upon completion of service. In order to avoid rounding error, it is necessary
+#'to keep the probabilities in
+#'the routing matrix as fractions if they are non-terminating, recurring decimal
+#' numbers.
 #'
 #' @param R Routing matrix R.
 #' @param gamma Mean arrival rate for each node.

@@ -4,7 +4,7 @@
 #'
 #' @param R Matrix of routing probabilites
 #'
-#' @return Returns vR=v such that  sum of v_i=1
+#' @return Returns vR=v such that  sum of v_i = 1.
 #' @export
 #'
 #' @examples R = matrix(c(0, 0.75, 0.25,0.6666666667, 0, 0.3333333333,
@@ -23,3 +23,6 @@ solve.routing <- function(R){
   b = matrix(c(rep(0, n), 1), nrow = 1, ncol = (m+1))
   v = (b%*%t(Q))%*%solve(Q%*%t(Q))
 }
+
+
+

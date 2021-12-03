@@ -10,7 +10,7 @@
 \item{R}{Matrix of routing probabilites}
 }
 \value{
-Returns vR=v such that  sum of v_i=1
+Returns vR=v such that  sum of v_i = 1.
 }
 \description{
 Finds v given the routing matrix R, solution to vR = v.

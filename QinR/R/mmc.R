@@ -12,6 +12,7 @@
 #' @param lambda Arrival Rate
 #' @param mu Service Rate
 #' @param c Number of Servers.
+#' @param tol Tolerance for convergence.
 #' @param plot_pn Boolean set to true, plots the distribution.
 #' @param plot_waitSys Boolean set to true for a M/M/1, will plot the probability density function of the waiting time in system.
 #' @param plot_waitQ Boolean set to true for a M/M/c, plot the probability density function of the waiting time in queue.

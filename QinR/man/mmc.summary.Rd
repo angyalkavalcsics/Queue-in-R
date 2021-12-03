@@ -21,6 +21,8 @@ mmc.summary(
 
 \item{c}{Number of Servers.}
 
+\item{tol}{Tolerance for convergence.}
+
 \item{plot_pn}{Boolean set to true, plots the distribution.}
 
 \item{plot_waitSys}{Boolean set to true for a M/M/1, will plot the probability density function of the waiting time in system.}

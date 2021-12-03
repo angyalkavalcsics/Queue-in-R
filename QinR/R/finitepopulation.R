@@ -46,7 +46,7 @@
 #' $lambda_eff
 #' [1] 0.09737873
 
-finitepopulation.summary <- function(lambda, mu, N){
+finitepopulationsummary <- function(lambda, mu, N){
   a <- lambda / mu
   if(N <= 100){
     bottleneck <- matrix(1, nrow = N+1, ncol = 1)

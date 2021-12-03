@@ -14,7 +14,7 @@
 #'           [,1]      [,2]      [,3]
 #' [1,] 0.4444444 0.3333333 0.2222222
 #'
-solve.routing <- function(R){
+solverouting <- function(R){
   n = nrow(R)
   m = ncol(R)
   I = diag(x = 1, nrow = n, ncol = m)

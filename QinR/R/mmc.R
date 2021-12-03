@@ -95,7 +95,7 @@
 #'[1] 0.2267229
 #'
 
-mmc.summary <- function(lambda, mu, c, tol,
+mmcsummary <- function(lambda, mu, c, tol,
                         plot_pn = FALSE,
                         plot_waitSys = FALSE,
                         plot_waitQ = FALSE){

@@ -1,3 +1,4 @@
+
 #' Solution to Routing Matrix
 #'
 #' Finds v given the routing matrix R, solution to vR = v.
@@ -9,12 +10,12 @@
 #'
 #' @examples R = matrix(c(0, 0.75, 0.25,0.6666666667, 0, 0.3333333333,
 #' 1, 0, 0), nrow = 3, ncol = 3, byrow = TRUE)
-#' v = solve.routing(R)
+#' v = solverouting(R)
 #' print(v)
 #'           [,1]      [,2]      [,3]
 #' [1,] 0.4444444 0.3333333 0.2222222
 #'
-solve.routing <- function(R){
+solverouting <- function(R){
   n = nrow(R)
   m = ncol(R)
   I = diag(x = 1, nrow = n, ncol = m)

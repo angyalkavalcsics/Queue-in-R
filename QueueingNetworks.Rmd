@@ -15,14 +15,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 <!-- https://htmlpreview.github.io/?https://github.com/angyalkavalcsics/QueueingNetworks/blob/main/QueueingNetworks.html -->
 
-This package was created as a graduate project for a course in Queueing Theory and we dedicate it to Professor Muhammad El-Taha.
-
-<br />
-Please cite this package in the following way.
-
-```{r citeme, echo = TRUE}
-citation("QinR")
-```
+We would like to dedicate the creation of this package to Professor Muhammad El-Taha. Thank you for always keeping us engaged, learning and laughing.
 
 ## How To Install
 
@@ -844,3 +837,11 @@ print(q$system_throughput)
 ```
 
 <br />
+
+<br />
+Please cite this package in the following way.
+
+```{r citeme, echo = TRUE}
+citation("QinR")
+```
+

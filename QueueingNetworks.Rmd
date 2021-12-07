@@ -663,7 +663,7 @@ q$marginal_probabilities
 In a closed Jackson network, there is no input rate from the outside world. Essentially, this is equivalent to a system where $N$ entities continuously travel inside the network. Suppose we have the following routing matrix and we need to solve $vR = v$ such that $\sum v_i = 1$. We can use the function solve.routing() to accomplish this. The only input necessary is the routing matrix. 
 ```{r solve routing matrix, echo=FALSE}
 # find v given the routing matrix R
-solve.routing <- function(R){
+solverouting <- function(R){
    n = nrow(R)
    m = ncol(R)
    I = diag(x = 1, nrow = n, ncol = m)
@@ -679,7 +679,7 @@ solve.routing <- function(R){
 R = matrix(c(0, 0.75, 0.25,
              0.6666666667, 0, 0.3333333333, 
              1, 0, 0), nrow = 3, ncol = 3, byrow = TRUE)
-v = solve.routing(R)
+v = solverouting(R)
 print(v)
 ```
 

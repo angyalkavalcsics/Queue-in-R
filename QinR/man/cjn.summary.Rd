@@ -27,7 +27,7 @@ is set to true, the function uses Buzen’s algorithm to solve for the summary s
 }
 \examples{
 R = matrix(c(0, 0.75, 0.25,0.6666666667, 0, 0.3333333333,1, 0, 0), nrow = 3, ncol = 3, byrow = TRUE)
-v = solve.routing(R)
+v = solverouting(R)
 mu = c(4, 1, 3)
 N = 3
 K = 3

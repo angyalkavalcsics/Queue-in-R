@@ -1,6 +1,6 @@
 ---
 title: "Statistical Package for Queueing in R"
-subtitle: Angyalka Valcsics, Pearl Armstrong, Shawn Houser
+subtitle: Angyalka Valcsics and Pearl Armstrong
 author: "University of Southern Maine"
 date: "12/7/2021"
 output:

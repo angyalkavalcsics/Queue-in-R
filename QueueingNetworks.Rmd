@@ -482,6 +482,66 @@ pr <- 1 - ((r^c * p0)/(factorial(c)*(1 - rho)))*exp(-(c*mu - lambda)*t)
 print(pr)
 ```
 
+## Erlang Loss Models
+
+This system is the oldest and the most famous system in queueing theory. Suppose that entities arrive according to a Poisson process and the service times are exponentially distributed. If all servers are busy when a new entity arrives, it will be lost because the system is full. The following function takes in the arrival rate, the service rate, and some number of servers. Additionally, with the Boolean set to true, the function will plot the number of servers from 1 to the number of servers specified and the probability of blocking.
+
+<br />
+
+Please keep in mind that in these formulas, the quantities for blocking probability are theoretical averages that are approached as a limit under the assumption that the queue  operates for a very long period of time without any change to the queue parameters (number of servers, arrival rate, service rate).
+
+<br />
+
+Finally, the function returns a table of results. This will be the blocking probabilities, the effective arrival rate, the number of entities turned away per unit time (respective to your arrival and service rates), the average number of entities in the system, and the utilization fraction. Let's see an example. 
+
+```{r erlangloss, echo=FALSE}
+erlangloss.summary <- function(lambda, mu, c, plot_blocking = TRUE){ 
+   # r := offered load
+   r <- lambda/mu
+   # recursively calculate the fraction of entities blocked
+   # here n represents the number of servers
+   # B := blocking probabilities where index is the num servers
+   B <- rep(1, c+1)
+   for(n in 1:c) {
+      x <- r*B[n]
+      B[n+1] <- x/(n + x)
+   }
+   blocking <- round(B[2:length(B)], 3)
+   num_servers <- seq(1, c, 1)   
+   if(plot_blocking == TRUE){
+      plot(num_servers, blocking, main = "Blocking Probability",
+           xlab = "Number of servers", ylab = "Probability of blocking",
+           pch = 19, col = "blue")
+   }
+   # abline(h = 0.05)
+   # Effective arrival rate per day
+   lambda_eff <- round(lambda*(1-blocking),3)
+   # Number of entities turned away per time unit
+   turned_away <- lambda*blocking
+   # Average number of entities in system
+   NS <- r*(1-blocking)
+   # Utilization fraction := average fraction of time that each server is busy
+   U <- (NS/num_servers)
+   # In these formulas, the quantities for B are theoretical averages 
+   # that are approached as a limit under the assumption that the queue 
+   # operates for a very long period of time without any change to the 
+   # queue parameters (number of servers, arrival rate, service rate).
+   res <- data.frame(round(cbind(num_servers, blocking, lambda_eff, turned_away,
+                                               NS, U), 3))
+   return(list('res' = res, 'blocking_probabilities' = blocking,
+               'lambda_eff' = lambda_eff, 'turned_away' = turned_away, 'L' = NS, 'Utilization' = U))
+}
+```
+   
+```{r ex loss, echo=TRUE}
+lambda <- 6
+mu <- 3
+c <- 4
+
+erlangloss.summary(lambda, mu, c, plot_blocking = TRUE)
+
+```
+
 ## Single-Server Finite Population Queue
 
 ```{r finitesummary, echo=FALSE}

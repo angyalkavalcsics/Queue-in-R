@@ -45,7 +45,7 @@ erlangloss.summary <- function(lambda, mu, c, plot_blocking = TRUE){
    # queue parameters (number of servers, arrival rate, service rate).
    res <- data.frame(round(cbind(num_servers, blocking, lambda_eff, turned_away,
                                                NS, U), 3))
-   return(list('res' = res, 'blocking_probabilities' = blocking,
+   return(list('res' = res, 'blocking_probabilities' = blocking, 'lambda_eff' = lambda_eff,
                'turned_away' = turned_away, 'L' = NS, 'Utilization' = U))
 }
 

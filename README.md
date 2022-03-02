@@ -11,3 +11,17 @@ Currently this package supports performance analysis for G/G/1, M/M/1, M/M/c, Er
 Additionally, there are some helper funtions such as the one for Birth/Death models or for solving a routing matrix. 
 
 Working on a demo for finding average service time, average arrival rate, and other metrics needed for these models. 
+
+To cite package 'QinR' in publications use:
+
+Angyalka Valcsics and Pearl Armstrong (2021). QinR: QinR: Queueing
+Models in R. R package version 1.0.0.
+
+A BibTeX entry for LaTeX users is
+
+@Manual{,
+     title = {QinR: QinR: Queueing Models in R},
+     author = {Angyalka Valcsics and Pearl Armstrong},
+     year = {2021},
+     note = {R package version 1.0.0},
+   }

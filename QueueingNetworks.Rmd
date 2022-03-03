@@ -35,7 +35,7 @@ install_github("angyalkavalcsics/QueueingNetworks/QinR")
 ```{r install4}
 library (QinR)	
 ```
-```{r printhelp, echo = FALSE}
+```{r printhelp, eval = FALSE}
 
 help_console <- function(topic, package,
                          format=c("text", "html", "latex", "Rd"),
@@ -88,7 +88,7 @@ help_console <- function(topic, package,
 ?mmc.summary
 ```
 
-```{r showhelp, echo = FALSE, results = "asis"}
+```{r showhelp, eval = FALSE, results = "asis"}
 help_console(mmc.summary, "QinR", format = "html")
 ```
 ## Introduction
@@ -294,7 +294,7 @@ Where the first element corresponds to $p_0$, the second to $p_1$, and so on.
 ## M/M/c Markovian model
 
 <br />
-Next we consider an M/M/1 Markovian model. Given inputs arrival rate, service rate, and number of servers $c = 1$ the function mm1.summary() returns a data frame of performance measures for the queue and an array with the discrete distribution of number of customers in system. Additionally, by entering "plot_pn = TRUE", the function will plot this distribution. For m/m/1 queues, by entering "plot_waitSys = TRUE" the function will plot the probability density function of the waiting time in system and similarly "plot_waitQ = TRUE" will plot the probability density function of the waiting time in queue. The variable tol is the stopping criteria for finding the probability distribution of customers in the system. That is, the function stops finding additional probabilities when $\sum p_n < 1 - tol$. The user can access performance measures by name using the $ operator. Please consider the following example. 
+Next we consider an M/M/1 Markovian model. Given inputs arrival rate, service rate, and number of servers $c = 1$ the function mm1.summary() returns a data frame of performance measures for the queue and an array with the discrete distribution of number of customers in system. Additionally, by entering "plot_pn = TRUE", the function will plot the distribution of customers/entities in system. For m/m/1 queues, by entering "plot_waitSys = TRUE" the function will plot the probability density function of the waiting time in system and similarly "plot_waitQ = TRUE" will plot the probability density function of the waiting time in queue. The variable tol is the stopping criteria for finding the probability distribution of customers in the system. That is, the function stops finding additional probabilities when $\sum p_n < 1 - tol$. The user can access performance measures by name using the $ operator. Please consider the following example. 
 
 ```{r mm1summary, echo=FALSE }
 mmc.summary <- function(lambda, mu, c, tol, 

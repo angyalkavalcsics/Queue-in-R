@@ -2,6 +2,7 @@
 
 export(BD.solve)
 export(cjn.summary)
+export(erlangloss.summary)
 export(finitepopulation.summary)
 export(gg1.summary)
 export(mmc.summary)

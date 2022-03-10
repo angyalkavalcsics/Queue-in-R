@@ -23,5 +23,5 @@ A BibTeX entry for LaTeX users is
      title = {QinR: QinR: Queueing Models in R},
      author = {Angyalka Valcsics and Pearl Armstrong},
      year = {2021},
-     note = {R package version 1.0.0},
+     note = {R package version 1.0.1},
    }

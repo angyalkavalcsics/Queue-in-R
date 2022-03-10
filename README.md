@@ -15,7 +15,7 @@ Working on a demo for finding average service time, average arrival rate, and ot
 To cite package 'QinR' in publications use:
 
 Angyalka Valcsics and Pearl Armstrong (2021). QinR: QinR: Queueing
-Models in R. R package version 1.0.0.
+Models in R. R package version 1.0.1.
 
 A BibTeX entry for LaTeX users is
 

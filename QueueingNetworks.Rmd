@@ -121,6 +121,7 @@ admit <- data.frame("DateIn" = c("1/1/2021", "1/1/2021", "1/1/2021", "1/2/2021",
                     "TimeIn" = c(845, 1010, 1130, 1330, 1430, 1545), 
                     "DateOut" = c("1/7/2021", "1/3/2021", "1/4/2021", "1/1/2021", "1/7/2021", "1/6/2021"),
                     "TimeOut" = c("0115", "1200", "1745", "0850", "1200", "1430"))
+print(admit)
 # Notice that I intentionally made the data types different, you would think the csv file would have read in 
 # evenly but it didn't :)
 # sapply(log, class) # check data types
@@ -140,26 +141,27 @@ admit$departure <- with(admit, paste0(newDateOut, " ", newTimeOut))
 # treat this like a simulation where the earliest time begins at time unit 0
 admit$arrival_days = as.numeric(as.POSIXct(admit$arrival, format = "%Y-%m-%d %H:%M")-as.POSIXct("2021-01-01 08:45", format = "%Y-%m-%d %H:%M"), units= "days")
 admit$departure_days = as.numeric(as.POSIXct(admit$departure, format = "%Y-%m-%d %H:%M")-as.POSIXct("2021-01-01 08:45", format = "%Y-%m-%d %H:%M"), units= "days")
+print(admit)
 # service time in days
-admit$service = admit$departure_days - admit$arrival_days
+admit$service_days = admit$departure_days - admit$arrival_days
 # oh yeah I snuck one in there - fix departure that occurs before arrival
 # you could do a check to swap them if you trust the integrity of the data or
 # just remove it altogether
-admit = admit[admit["service"] > 0,]
-# What it looks like so far
+admit = admit[admit["service_days"] > 0,]
 print(admit)
 # Now we need tidyverse, hopefully you have it installed
+# install.packages("tidyverse")
 suppressWarnings(suppressMessages(library("tidyverse")))
 arrival_counts_days <- admit %>% group_by(DateIn) %>% count()
 # Find discrete distribution of admits in days
 count_days <- arrival_counts_days %>% pull(n)
 # Find service distribution - really not helpful in this ex but with more data yes
-hist(admit$service, main = "Distribution of Service Time", 
+hist(admit$service_days, main = "Distribution of Service Time", 
      xlab = "Service Time (days)")
 # Compute average (effective) arrival rate
 lambda = mean(count_days)
 # compute average service time (days)
-mean_service_time = mean(admit$service)
+mean_service_time = mean(admit$service_days)
 # average service rate
 mu = 1/mean_service_time
 print(mu)

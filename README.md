@@ -1,5 +1,5 @@
 # QueueingNetworks
-The beginning to a statistical software package for queueing in R. This package is currently under construction. 
+The beginning to a statistical software package for queueing theory in R. This package is currently under construction. 
 
 Please see documentation for the code here:
 https://htmlpreview.github.io/?https://github.com/angyalkavalcsics/QueueingNetworks/blob/main/QueueingNetworks.html

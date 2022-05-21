@@ -16,14 +16,14 @@
 #' [1,] 0.4444444 0.3333333 0.2222222
 #'
 solverouting <- function(R){
-  n = nrow(R)
-  m = ncol(R)
-  I = diag(x = 1, nrow = n, ncol = m)
-  Q = R - I
-  Q = cbind(Q, rep(1, n))
-  b = matrix(c(rep(0, n), 1), nrow = 1, ncol = (m+1))
-  v = (b%*%t(Q))%*%solve(Q%*%t(Q))
+  n <- nrow(R)
+  if(n != ncol(R)){stop('The routing matrix must be square')}
+  if(sum(R < 0) > 0){stop('Cannot have negative probabilities in the routing matrix')}
+  if(sum(R > 1) > 0){stop('Cannot have probabilities greater than one in the routing matrix')}
+  I <- diag(x = 1, nrow = n, ncol = n)
+  Q <- cbind((R - I), rep(1, n))
+  b <- matrix(c(rep(0, n), 1), nrow = 1, ncol = (n+1))
+  Q_t <- t(Q)
+  v <- (b%*%Q_t)%*%solve(Q%*%Q_t)
+  return(v)
 }
-
-
-

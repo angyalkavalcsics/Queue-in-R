@@ -639,7 +639,7 @@ In a closed Jackson network, there is no input rate from the outside world. Clos
 
 <br />
 
-We can use the function solverouting() to accomplish this. The only input necessary is the routing matrix and the function returns and error if R is not a square matrix with nonnegative entries so that every row adds up to at most 1. As with open Jackson networks, the routing matrix is assumed to be irreducible and non-absorbing.
+We can use the function solverouting() to accomplish this. The only input necessary is the routing matrix and the function returns an error if R is not a square matrix with nonnegative entries so that every row adds up to at most 1. As with open Jackson networks, the routing matrix is assumed to be irreducible and non-absorbing.
 ```{r solve routing matrix, echo=FALSE}
 # find v given the routing matrix R
 solverouting <- function(R){

@@ -6,7 +6,7 @@ date: "`r format(Sys.time(), '%B %d, %Y')`"
 output:
   html_document:
     toc: true
-    theme: sandstone
+    theme: readable
 ---
 \tableofcontents 
 
@@ -16,7 +16,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 <!-- https://htmlpreview.github.io/?https://github.com/angyalkavalcsics/QueueingNetworks/blob/main/QueueingNetworks.html -->
 
-We would like to dedicate the creation of this package to Professor Muhammad El-Taha. Thank you for always keeping us engaged, learning and laughing.
+We would like to dedicate the creation of this package to Professor Muhammad El-Taha.
 
 ## How To Install
 
@@ -122,8 +122,7 @@ admit <- data.frame("DateIn" = c("1/1/2021", "1/1/2021", "1/1/2021", "1/2/2021",
                     "DateOut" = c("1/7/2021", "1/3/2021", "1/4/2021", "1/1/2021", "1/7/2021", "1/6/2021"),
                     "TimeOut" = c("0115", "1200", "1745", "0850", "1200", "1430"))
 print(admit)
-# Notice that I intentionally made the data types different, you would think the csv file would have read in 
-# evenly but it didn't :)
+# Notice that I intentionally made the data types different
 # sapply(log, class) # check data types
 # First need to combine the data/time columns for arrival and departure into the system
 # Pad time with zeros and convert char to int
@@ -137,8 +136,8 @@ newDateOut = as.Date(admit$DateOut,format='%m/%d/%Y')
 admit$arrival <- with(admit, paste0(newDateIn, " ", newTimeIn))
 admit$departure <- with(admit, paste0(newDateOut, " ", newTimeOut))
 # as.POSIXct() is vectorized - see documentation online
-# get arrivals in days - or whatever time unit you want
-# treat this like a simulation where the earliest time begins at time unit 0
+# get arrivals in days - or whichever time unit you want
+# I will treat this like a simulation where the earliest time begins at time unit 0
 admit$arrival_days = as.numeric(as.POSIXct(admit$arrival, format = "%Y-%m-%d %H:%M")-as.POSIXct("2021-01-01 08:45", format = "%Y-%m-%d %H:%M"), units= "days")
 admit$departure_days = as.numeric(as.POSIXct(admit$departure, format = "%Y-%m-%d %H:%M")-as.POSIXct("2021-01-01 08:45", format = "%Y-%m-%d %H:%M"), units= "days")
 print(admit)
@@ -580,7 +579,7 @@ Where the first element corresponds to $p_0$, the second to $p_1$, and so on.
 
 ## Open Single-Server Jackson Networks
 
-Suppose we have an open Jackson network where entities may arrive from the outside at any node according to a Poisson process and entities are serviced according to an exponential distribution. There is no limit on queue capacity at any node and there is a probability, possibly nonzero, that an entity will leave the network at some node $i$ upon completion of service. We can use the function ojn.summary(R, gamma, mu, maxMarginalProb) to find performance measures for this system. This stands for 'Open Jackson Network Summary'. This function takes as inputs the routing matrix R, the mean arrival rate to each node gamma, the mean service rate of each node mu, and the max number of marginal probabilities you would like returned for each node. Please keep in mind that in order to avoid rounding error, it is necessary to keep the probabilities in the routing matrix as fractions if they are, for example, non-terminating, recurring decimal numbers. 
+Suppose we have an open Jackson network where entities may arrive from the outside at any node according to a Poisson process and entities are serviced according to an exponential distribution. There is no limit on queue capacity at any node and there is a probability, possibly nonzero, that an entity will leave the network at some node $i$ upon completion of service. We can use the function ojn.summary(R, gamma, mu, maxMarginalProb) to find performance measures for this system. This stands for 'Open Jackson Network Summary'. Recall that the routing matrix is assumed to be irreducible and non-absorbing. This function takes as inputs the routing matrix R, the mean arrival rate to each node gamma, the mean service rate of each node mu, and the max number of marginal probabilities you would like returned for each node. Please keep in mind that in order to avoid rounding error, it is necessary to keep the probabilities in the routing matrix as fractions if they are, for example, non-terminating, recurring decimal numbers. 
 ```{r ojn.summary, echo=FALSE}
 ojn.summary <- function(R, gamma, mu, maxMarginalProb){
    n = nrow(R)
@@ -636,19 +635,26 @@ q$marginal_probabilities
 
 ## Closed Single-Server Jackson Networks
 
-In a closed Jackson network, there is no input rate from the outside world. Essentially, this is equivalent to a system where $N$ entities continuously travel inside the network. Suppose we have the following routing matrix and we need to solve $vR = v$ such that $\sum v_i = 1$. We can use the function solverouting() to accomplish this. The only input necessary is the routing matrix. 
+In a closed Jackson network, there is no input rate from the outside world. Closed networks have a fixed population that move between the queues but never leave the system. Essentially, this is equivalent to a system where $N$ entities continuously travel inside the network of $K$ nodes. Suppose we have some routing matrix R and we need to solve $vR = v$ such that $\sum v_i = 1$, a condition we force. Recall that the $v_{i}$ are interpreted as the relative throughput through node $i$. 
+
+<br />
+
+We can use the function solverouting() to accomplish this. The only input necessary is the routing matrix and the function returns and error if R is not a square matrix with nonnegative entries so that every row adds up to at most 1. As with open Jackson networks, the routing matrix is assumed to be irreducible and non-absorbing.
 ```{r solve routing matrix, echo=FALSE}
 # find v given the routing matrix R
 solverouting <- function(R){
-   n = nrow(R)
-   m = ncol(R)
-   I = diag(x = 1, nrow = n, ncol = m)
-   Q = R - I
-   Q = cbind(Q, rep(1, n))
-   b = matrix(c(rep(0, n), 1), nrow = 1, ncol = (m+1))
-   v = (b%*%t(Q))%*%solve(Q%*%t(Q))
+  n <- nrow(R)
+  if(n != ncol(R)){stop('The routing matrix must be square')}
+  if(sum(R < 0) > 0){stop('Cannot have negative probabilities in the routing matrix')}
+  if(sum(R > 1) > 0){stop('Cannot have probabilities greater than one in the routing matrix')}
+  if(sum(rowSums(R) > 1) > 0){stop('Row probabilities in the routing matrix must add up to at most 1')}
+  I <- diag(x = 1, nrow = n, ncol = n)
+  Q <- cbind((R - I), rep(1, n))
+  b <- matrix(c(rep(0, n), 1), nrow = 1, ncol = (n+1))
+  Q_t <- t(Q)
+  v <- (b%*%Q_t)%*%solve(Q%*%Q_t)
+  return(v)
 }
-
 ```
 ```{r cjn ex 1}
 # find v given the routing matrix
@@ -659,7 +665,25 @@ v = solverouting(R)
 print(v)
 ```
 
-Now, let's get the performance measures for each node in this network using the function cjn.summary(v, N, K, convolution = TRUE). This stands for 'Closed Jackson Network Summary'. The necessary inputs are v, the solution to $vR = v$ such that $\sum v_i = 1$, the given service rates, N the number of customers in the system, K the number of nodes in the network, and a boolean convolution. When convolution is set to true, the function uses Buzen's algorithm to solve for the summary statistics. Otherwise the function will use Mean Value Analysis. Using the same routing matrix as before let's see an example, first with convolution. 
+If you are interested in how this function works, see the following proof. 
+
+<br />
+
+We are given a system of equations,
+$$\vec{v} = \vec{v}R$$
+or 
+$$v_{j} = \sum_{i=1}^{K}v_{i}r_{ij}$$
+and require the following
+$$\sum_{j}^{K} v_{j} = 1$$
+To solve this system of equations, we use techniques from linear algebra. We know that $\vec{v} = \vec{v}R$, hence $v(R-I) = 0$. Now to include the equation $\sum v_{j} = 1$, we add a column of ones to $R - I$. Call this new matrix, $Q$. Then the right hand side of the equation becomes $b = \begin{bmatrix} 0 & 0 & ... & 1 \end{bmatrix}$. That is, $\vec{v} Q = \vec{b}$ and we can now solve for $\vec{v}$. See that
+$$\vec{v} Q = \vec{b}$$
+$$\vec{v} Q Q^{T} = \vec{b}Q^{T}$$
+$$\vec{v} = \vec{b}Q^{T}(Q Q^{T})^{-1}$$
+And there you have it. 
+
+<br />
+
+Now, let's get the performance measures for each single-server node in this network using the function cjn.summary(v, N, K, convolution = TRUE). This stands for 'Closed Jackson Network Summary'. The necessary inputs are v, the solution to $vR = v$ such that $\sum v_i = 1$, the given service rates, N the number of customers in the system, K the number of nodes in the network, and a Boolean convolution. When convolution is set to true, the function uses Buzen's algorithm to solve for the summary statistics. Otherwise the function will use Mean Value Analysis. Using the same routing matrix as before let's see an example, first with convolution. 
 
 ```{r cjn, echo=FALSE}
 # v := solution to vR = v

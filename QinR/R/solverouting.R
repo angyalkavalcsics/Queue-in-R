@@ -20,6 +20,7 @@ solverouting <- function(R){
   if(n != ncol(R)){stop('The routing matrix must be square')}
   if(sum(R < 0) > 0){stop('Cannot have negative probabilities in the routing matrix')}
   if(sum(R > 1) > 0){stop('Cannot have probabilities greater than one in the routing matrix')}
+  if(sum(rowSums(R) > 1) > 0){stop('Row probabilities in the routing matrix must add up to at most 1')}
   I <- diag(x = 1, nrow = n, ncol = n)
   Q <- cbind((R - I), rep(1, n))
   b <- matrix(c(rep(0, n), 1), nrow = 1, ncol = (n+1))

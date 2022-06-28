@@ -98,18 +98,18 @@ Queueing theory is the mathematical study of the formation and function of queue
 
 ## Measures of System Performance
 
-Variable | Definition
--------------------- | -------------
-$\lambda$  | Average arrival rate
-$S$  | Random service time
-$\mu$  | Average service rate
-$c$  | Number of servers
-$r = \lambda / \mu$  | Offered load
-$\rho = \lambda / c \mu$  | Traffic intensity or utilization
-$T, T_{q}$  | Random time a customer spends in the system / queue
-$W, W_{q}$  | Average time a customer spends in the system / queue
-$N, N_{q}$  | Random number of customers in the system / queue
-$L, L_{q}$  | Average number of customers in the system / queue
+Variable       | Definition
+------------------------- | ----------------------------------------
+$\lambda$               | Average arrival rate
+$S$                     | Random service time
+$\mu$                   | Average service rate
+$c$                     | Number of servers
+$r = \lambda / \mu$     | Offered load
+$\rho = \lambda / c \mu$| Traffic intensity or utilization
+$T, T_{q}$              | Random time a customer spends in the system / queue
+$W, W_{q}$              | Average time a customer spends in the system / queue
+$N, N_{q}$              | Random number of customers in the system / queue
+$L, L_{q}$              | Average number of customers in the system / queue
 
 ## Demonstration
 
@@ -143,7 +143,7 @@ admit$departure_days = as.numeric(as.POSIXct(admit$departure, format = "%Y-%m-%d
 print(admit)
 # service time in days
 admit$service_days = admit$departure_days - admit$arrival_days
-# oh yeah I snuck one in there - fix departure that occurs before arrival
+# fix departure that occurs before arrival
 # you could do a check to swap them if you trust the integrity of the data or
 # just remove it altogether
 admit = admit[admit["service_days"] > 0,]
